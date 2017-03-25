@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var api = require('./routes/api.route');
 
 var app = express();
 
@@ -26,7 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /*ROUTES*/
-//app.use('/api',api);
+app.use('/api',api);
 
 //passport config
 var User = require('./models/user.model').user;
