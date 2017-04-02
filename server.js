@@ -36,8 +36,21 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // DB Mongo
-mongoose.connect('mongodb://localhost/ApiUsers',function(){
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
+
+var mongodbUri = 'mongodb://mauri:mdellevedove12@ds145379.mlab.com:45379/real-state';
+
+mongoose.connect(mongodbUri, options);
+var conn = mongoose.connection;
+
+conn.on('error', console.error.bind(console, 'connection error:'));
+
+conn.once('open', function() {
   console.log("Data Base OK");
 });
+//mongoose.connect('mongodb://localhost/ApiUsers',function(){
+  //console.log("Data Base OK");
+//});
 
 module.exports = app;
